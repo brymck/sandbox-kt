@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 @ExperimentalCoroutinesApi
 internal class CoroutinesTest {
     @Test
-    fun blah() {
+    fun `coroutines demo output follows expectations around order of operations`() {
         val captured = captureOutput {
             Coroutines().run()
         }
