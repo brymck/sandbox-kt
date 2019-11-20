@@ -1,0 +1,40 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.3.41"
+
+    id "application"
+
+    // ktlint
+    id "org.jlleitschuh.gradle.ktlint" version "9.1.1"
+    id "org.jlleitschuh.gradle.ktlint-idea" version "9.1.1"
+}
+
+repositories {
+    jcenter()
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    // Kotlin
+    implementation platform("org.jetbrains.kotlin:kotlin-bom")
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2"
+
+    // Clikt
+    implementation "com.github.ajalt:clikt:2.3.0"
+
+    // JUnit
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.1.0"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.1.0"
+
+    // AssertJ
+    testImplementation "org.assertj:assertj-core:3.11.1"
+}
+
+application {
+    mainClassName = "com.github.brymck.sandbox.ApplicationKt"
+}
