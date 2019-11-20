@@ -38,5 +38,5 @@ workflows:
   version: 2
   default:
     jobs:
-      - test:
+      - build:
           context: default
