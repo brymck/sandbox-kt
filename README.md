@@ -15,13 +15,15 @@ Examples
 Usage
 -----
 
+Clone and build the repo with the following:
+
 ```bash
 git clone git@github.com:brymck/sandbox-kt.git
 cd sandbox-kt
 make
 ```
 
-To run one of the examples, pass its name to `make`
+To run one of the examples, just pass its name to `make`:
 
 ```bash
 make coroutines
