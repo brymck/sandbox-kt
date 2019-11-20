@@ -7,7 +7,7 @@ GRADLE_FILES := $(wildcard *.gradle)
 all: $(EXECUTABLE)
 
 test:
-	./gradlew test
+	./gradlew check
 
 $(EXECUTABLE): $(KOTLIN_FILES) $(GRADLE_FILES)
 	./gradlew clean test installDist
