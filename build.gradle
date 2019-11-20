@@ -14,8 +14,15 @@ repositories {
     jcenter()
 }
 
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
 }
 
 dependencies {
@@ -39,8 +46,4 @@ dependencies {
 
 application {
     mainClassName = "com.github.brymck.sandbox.ApplicationKt"
-}
-
-test {
-    finalizedBy jacocoTestReport
 }

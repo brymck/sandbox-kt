@@ -11,12 +11,18 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class Coroutines : CliktCommand() {
+    companion object {
+        private const val BATCH_SIZE = 5
+        private const val BATCH_PROCESSOR_COUNT = 3
+        private const val ITEM_COUNT = 13
+    }
+
     @ExperimentalCoroutinesApi
     override fun run() {
         runBlocking {
             val items = produceItems()
-            val batcher = dispatchItemsInBatch(items, 25)
-            repeat(5) { i ->
+            val batcher = dispatchItemsInBatch(items, BATCH_SIZE)
+            repeat(BATCH_PROCESSOR_COUNT) { i ->
                 launchBatchProcessor(i, batcher)
             }
             println("main: done in coroutine scope")
@@ -31,10 +37,10 @@ class Coroutines : CliktCommand() {
 
     @ExperimentalCoroutinesApi
     private fun CoroutineScope.produceItems() = produce {
-        repeat(90) { i ->
+        repeat(ITEM_COUNT) { i ->
             println("producer: created item $i")
             send(i)
-            delay(10L)
+            delay(50L)
         }
         println("producer: done")
     }
