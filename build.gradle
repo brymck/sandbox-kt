@@ -40,3 +40,7 @@ dependencies {
 application {
     mainClassName = "com.github.brymck.sandbox.ApplicationKt"
 }
+
+test {
+    finalizedBy jacocoTestReport
+}
