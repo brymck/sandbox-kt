@@ -28,8 +28,11 @@ jobs:
           name: Run tests
           command: ./gradlew test
       - run:
-        name: Upload coverage report to Codecov
-        command: bash <(curl -s https://codecov.io/bash)
+          name: Upload coverage report to Codecov
+          command: curl -s https://codecov.io/bash | bash -s -- \
+            -t ${CODECOV_TOKEN} \
+            -n ${CIRCLE_BUILD_NUM} \
+            -Z || echo 'Codecov upload failed'
 workflows:
   version: 2
   default:
