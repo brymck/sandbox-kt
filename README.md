@@ -7,6 +7,11 @@ sandbox
 
 This is just a sandbox of some experiments I have in Kotlin.
 
+Examples
+-------
+
+* `coroutines` - A proof of concept of how [Kotlin coroutines][coroutines] can be used to perform IO-intensive operations that would normally block a thread
+
 Usage
 -----
 
@@ -16,8 +21,10 @@ cd sandbox-kt
 make
 ```
 
-To run
+To run one of the examples, pass its name to `make`
 
 ```bash
 make coroutines
 ```
+
+[coroutines]: https://kotlinlang.org/docs/reference/coroutines-overview.html
