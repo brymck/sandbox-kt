@@ -47,10 +47,11 @@ class Coroutines : CliktCommand() {
     /** Produces numbers from 0 to [count] with an 0.05 second delay into a channel. */
     @ExperimentalCoroutinesApi
     private fun CoroutineScope.produceItems(count: Int) = produce {
+        delay(50L)
         repeat(count) { i ->
             println("producer: created item $i")
             send(i)
-            delay(50L)
+            delay(25L)
         }
         println("producer: done")
     }
@@ -82,13 +83,11 @@ class Coroutines : CliktCommand() {
      * Launches a coroutine with ID [id] that will process a batch of items from a [channel]. This simulates processing
      * via a blocking function by calling [blockingSleep].
      */
-    private fun <T> CoroutineScope.launchBatchProcessor(id: Int, channel: ReceiveChannel<List<T>>) = launch {
+    private fun <T> CoroutineScope.launchBatchProcessor(id: Int, channel: ReceiveChannel<List<T>>) = launch(Dispatchers.IO) {
         println("processor #$id: available")
         for (items in channel) {
             println("processor #$id: received ${items.size} items: $items")
-            launch(Dispatchers.IO) {
-                blockingSleep()
-            }
+            blockingSleep()
             println("processor #$id: available")
         }
         println("processor #$id: done")
