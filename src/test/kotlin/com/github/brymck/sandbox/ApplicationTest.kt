@@ -12,6 +12,7 @@ internal class ApplicationTest {
     @Test
     fun `running the CLI with no subcommands does nothing`() {
         val application = Application()
+        Double.NaN
         assertThatCode { application.main(emptyArray()) }
             .doesNotThrowAnyException()
     }
@@ -25,7 +26,7 @@ internal class ApplicationTest {
                         main(emptyArray())
                     }
                 }
-            .withMessage("Tried to exit with status 0.")
+                .withMessage("Tried to exit with status 0.")
         }
         assertThat(captured.stdout).startsWith("Usage:")
     }

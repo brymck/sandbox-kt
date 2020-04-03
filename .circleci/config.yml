@@ -6,27 +6,20 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - run:
-          name: Set up Git LFS
-          command: |
-            curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-            sudo apt-get install git-lfs
-            ssh git@github.com git-lfs-authenticate ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git download
-            git lfs pull
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "build.gradle" }}
+            - v1-dependencies-{{ checksum "pom.xml" }}
             - v1-dependencies-
       - run:
           name: Download dependencies
-          command: ./gradlew dependencies
+          command: mvn --batch-mode --update-snapshots dependency:go-offline
+      - run:
+          name: Test, package and verify
+          command: mvn --batch-mode --update-snapshots verify
       - save_cache:
           paths:
-            - ~/.gradle
-          key: v1-dependencies-{{ checksum "build.gradle" }}
-      - run:
-          name: Run tests
-          command: ./gradlew check
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
       - run:
           name: Upload coverage report to Codecov
           command: curl -s https://codecov.io/bash | bash -s -- \
